@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+    int data;
+    struct node *next;
+}*first=NULL;
+void create(int A[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first=new node;
+    first->data=A[0];
+    first->next=NULL;
+    last=first;
+    
+    for(i=1;i<n;i++)
+    {
+        t=new node;
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+void fun(struct node *p,int n)
+{
+    int x=0,y,i,count=0;
+    struct node *q,*r;
+    while(p!=NULL)
+    {
+        x=(x+p->data)*10;
+        p=p->next;
+       
+    }
+    x=(x/10)+1;
+    p=first;
+    for(i=0;i<n;i++)
+    {
+        y=x%10;
+        p->data=y;
+        x=x/10;
+        p=p->next;
+    }
+    p=first;
+    q=NULL;
+    r=NULL;
+    while(p!=NULL)
+    {
+     r=q;
+     q=p;
+     p=p->next;
+     q->next=r;
+    }
+    first=q;
+   
+}
+
+void display(struct node *p)
+{
+    while(p!=NULL)
+    {
+        cout<<p->data<<" ";
+        p=p->next;
+       
+    }
+}
+int main() 
+{
+    int A[]={1,9,9,9};
+    create(A,4);
+    fun(first,4);
+    display(first);
+	return 0;
+}
+*****************************************
+input
+1->9->9->9
+output
+2->0->0->0
