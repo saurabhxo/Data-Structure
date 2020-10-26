@@ -1,0 +1,118 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+    int data;
+    struct node *next;
+}*first=NULL,*second=NULL,*third=NULL;
+void create(int A[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first=new node;
+    first->data=A[0];
+    first->next=NULL;
+    last=first;
+    
+    for(i=1;i<n;i++)
+    {
+        t=new node;
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+
+void fun(struct node *p,int key)
+{
+    struct node *q,*t,*last, *r,*s;
+        second=new node;
+        second->data=p->data;
+        second->next=NULL;
+        last=second;
+        p=p->next;
+    while(p->data!=key)
+    {
+        t=new node;
+        t->data=p->data;
+        t->next=NULL;
+        last->next=t;
+        p=p->next;
+        last=t;
+    }
+   t=new node;
+   t->data=p->data;
+   t->next=NULL;
+   last->next=t;
+   last=t;
+   
+   q=second;
+   r=NULL;
+   s=NULL;
+   while(q!=NULL)
+   {
+       s=r;
+       r=q;
+       q=q->next;
+       r->next=s;
+   }
+   second=r;
+   
+        p=p->next;
+        third=new node;
+        third->data=p->data;
+        third->next=NULL;
+        last=third;
+        p=p->next;
+        while(p!=NULL)
+    {
+        t=new node;
+        t->data=p->data;
+        t->next=NULL;
+        last->next=t;
+        p=p->next;
+        last=t;
+    }
+        
+    
+   q=third;
+   r=NULL;
+   s=NULL;
+   while(q!=NULL)
+   {
+       s=r;
+       r=q;
+       q=q->next;
+       r->next=s;
+   }
+   third=r;
+}
+void display(struct node *p,struct node *q)
+{
+    while(p!=NULL)
+    {
+        cout<<p->data<<" ";
+        p=p->next;
+       
+    }
+     while(q!=NULL)
+    {
+        cout<<q->data<<" ";
+        q=q->next;
+       
+    }
+}
+int main() 
+{
+    int A[]={1,2,2,4,5,6,7,8};
+    create(A,8);
+    fun(first,4);
+    display(second,third);
+	return 0;
+}
+***********************************************************************
+input
+1,2,2,4,5,6,7,8
+output
+4 2 2 1 8 7 6 5 
