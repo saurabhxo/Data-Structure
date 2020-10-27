@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+    int data;
+    struct node *next;
+}*first=NULL;
+void create(int A[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first = new node;
+    first->data=A[0];
+    first->next=NULL;
+    last=first;
+    for(i=1;i<n;i++)
+    {
+        t=new node;
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+        
+    }
+   
+}
+
+void fun(struct node *p,int key)
+{
+    struct node *q,*r;
+    q=NULL;
+    r=NULL;
+    while(p!=NULL)
+    {
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    first=q;
+    for(int i=1;i<key;i++)
+    {
+        q=q->next;
+    }
+    cout<<q->data;
+}
+
+int main() 
+{
+    int A[]={3,5,7,10,15};
+    create (A,5);
+    fun(first,3);
+	return 0;
+}
