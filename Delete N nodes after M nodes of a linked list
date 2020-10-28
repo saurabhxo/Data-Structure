@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+    int data;
+    struct node *next;
+}*first=NULL;
+void create(int A[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first = new node;
+    first->data=A[0];
+    first->next=NULL;
+    last=first;
+    for(i=1;i<n;i++)
+    {
+        t=new node;
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+        
+    }
+    
+}
+void del(struct node *p,int m,int n)
+{
+    struct node *q;
+    int count;
+    while(p!=NULL&&p->next!=NULL)
+    {
+        for(count=1;count<m&&p!=NULL;count++)
+        p=p->next;
+        if(p==NULL)
+        break;
+        
+        q=p->next;
+        for(count=1;count<=n&&q!=NULL;count++)
+        {
+            struct node *temp=q;
+            q=q->next;
+            delete temp;
+            
+        }
+        p->next=q;
+        p=q;
+    }
+}
+void display(struct node *q)
+{
+    while(q!=NULL)
+    {
+        cout<<q->data<<" ";
+        q=q->next;
+    }
+}
+int main() 
+{
+    int A[]={1,2,3,4,5,6,7,8,9,10};
+    create (A,10);
+   del(first,2,2);
+   display(first);
+	return 0;
+}
+*************************************************************************************************************
+input
+1 2 3 4 5 6 7 8 9 10
+output
+1 2 5 6 9 10 
