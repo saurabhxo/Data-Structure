@@ -1,0 +1,131 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct node
+{
+    int data;
+    struct node* next;
+}*head=NULL;
+void create(int *arr,int  n)
+{
+    struct node *last, *t;
+    head=new node;
+    head->data=arr[0];
+    head->next=NULL;
+    last=head;
+    for(int i=1;i<n;i++)
+    {
+        t=new node;
+        t->data=arr[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+    
+}
+void display(struct node* p)
+{
+    while(p!=NULL)
+    {
+        cout<<p->data<<" ";
+        p=p->next;
+    }
+}
+void fun(struct node* head, int x)
+{
+    struct node *small, *large, *equal, *s, *l, *e, *d;
+    small=new node;
+    small->data=0;
+    small->next=NULL;
+    large=new node;
+    large->data=0;
+    large->next=NULL;
+    equal=new node;
+    equal->data=0;
+    equal->next=NULL;
+    s=small;
+    l=large;
+    e=equal;
+    while(head!=NULL)
+    {
+        if(head->data<x)
+        {
+            s->next=head;
+            s=s->next;
+            head=head->next;
+            s->next=NULL;
+        }
+        else if(head->data==x)
+        {
+            e->next=head;
+            e=e->next;
+              head=head->next;
+            e->next=NULL;
+            
+        }
+        else
+        {
+            l->next=head;
+            l=l->next;
+              head=head->next;
+            l->next=NULL;
+        }
+    }
+    if(small->next!=NULL)
+    {
+        d=small;
+        small=small->next;
+        delete d;
+    }
+    if(equal->next!=NULL)
+    {
+        d=equal;
+        equal=equal->next;
+        delete d;
+    }
+    if(large->next!=NULL)
+    {
+        d=large;
+        large=large->next;
+        delete d;
+    }
+    if(small!=NULL && equal!=NULL && large!=NULL)
+    {
+        s->next=equal;
+        e->next=large;
+    }
+    else if(small!=NULL && equal==NULL && large!=NULL)
+    {
+        s->next=large;
+    }
+    else if(small==NULL && equal!=NULL && large!=NULL)
+    {
+        e->next=large;
+    }
+}
+
+int main() 
+{
+    int n, x;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    cin>>x;
+    create(arr, n);
+    fun(head, x);
+    display(head);
+	return 0;
+}
+*********************************************************************************************
+Input
+7
+1 4 3 2 5 2 3
+3
+Output
+1 2 2 3 3 4 5 
+Given a linked list and a value x, partition it such that all nodes less than x come first,
+then all nodes with value equal to x and finally nodes with value greater than or equal to x. 
+The original relative order of the nodes in each of the three partitions should be preserved. The partition must work in-place.
