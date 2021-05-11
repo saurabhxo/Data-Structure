@@ -1,0 +1,44 @@
+Node *merge(Node *a, Node *b)
+{
+    if(a==NULL)
+    return b;
+    if(b==NULL)
+    return a;
+    Node *ans=new Node(-1);
+    Node *root=ans;
+    while(a && b)
+    {
+        if(a->data <= b->data)
+        {
+            ans->bottom=a;
+            ans=ans->bottom;
+            a=a->bottom;
+        }
+        else
+        {
+            ans->bottom=b;
+            ans=ans->bottom;
+            b=b->bottom;
+        }
+    }
+    if(a==NULL)
+    {
+        ans->bottom=b;
+    }
+    else
+    {
+        ans->bottom=a;
+    }
+    return root->bottom;
+}
+    
+Node *flatten(Node *root)
+{
+   Node *prev=NULL, *curr=root, *n=curr->next;
+   
+  if(root==NULL || root->next==NULL)
+  return root;
+  root->next= flatten(root->next);
+  root=merge(root, root->next);
+   return root;
+}
